@@ -1,9 +1,23 @@
 class Flight(id: String, private val pool: Map[Seat, Int]) {
   private var seated = List[Seating]()
 
-  def remaining(): Map[Seat, Int] = ???
+  def remaining(): Map[Seat, Int] = {
+    val seatedCount = seated.groupBy(_.seatType).mapValues(_.length)
+    for {
+      (k, v) <- pool
+    } yield (k, v - seatedCount.getOrElse(k, 0))
+  }
 
-  def addBooking(seat: Seat, passenger: Person): Boolean = ???
+  def addBooking(seat: Seat, passenger: Person): Boolean = {
+    if(passenger.weight > seat.maxWeight)
+      false
+    val availableCount = remaining().getOrElse(seat, 0)
+    if(availableCount > 0) {
+      seated = Seating(f"${seat.seatType}-$availableCount", seat, passenger ) +: seated
+      true
+    }
+    else false
+  }
 
   def seating: List[Seating] = seated
 
