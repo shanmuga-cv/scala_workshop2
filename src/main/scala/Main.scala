@@ -1,3 +1,5 @@
+// to cover collections, option, inheritance
+
 import scala.util.Try
 
 object Main {
