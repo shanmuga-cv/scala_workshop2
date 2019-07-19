@@ -1,3 +1,5 @@
+import flight.{Flight, Person, Seat}
+
 import scala.util.Try
 
 object Main {

@@ -1,3 +1,7 @@
+package flight
+
+import store.{Sale, Store}
+
 class Flight(id: String, override val capacity: Map[Seat, Int]) extends Store[Seat, Person] {
   private var seated = List[Sale[Seat, Person]]()
 

@@ -1,7 +1,11 @@
-import Main.{findAndBook, findSeat, findSeatInFlight}
+import flight.{Flight, LuxurySeat, Person, SingleSeat, SpecialSeat}
 import org.scalatest.FunSuite
+import store.Sale
 
-class Test extends FunSuite {
+
+class TestFlightBooking extends FunSuite {
+  import Main._
+
   test("test findSeatInFlight") {
     assert(findSeatInFlight(new Flight("a", Map(SingleSeat -> 8)), Person("a", 80)) contains SingleSeat)
     assert(findSeatInFlight(new Flight("a", Map(SingleSeat -> 8)), Person("a", 120)).isEmpty)
