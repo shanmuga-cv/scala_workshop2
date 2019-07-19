@@ -1,4 +1,5 @@
 import flight.{Flight, Person, Seat}
+import advertisement._
 
 import scala.util.Try
 
@@ -44,5 +45,29 @@ object Main {
       println
       println
     })
+
+    println("\n\n\nAdvertisements\n")
+
+    val ads = List(
+      new ImageAdvertisement("candy", 300),
+      new ImageAdvertisement("paint", 300),
+      new ImageAdvertisement("phone", 1024),
+      new ImageAdvertisement("cookie", 300),
+      new VideoAdvertisement("car", 310L),
+      new VideoAdvertisement("bike", 150L)
+    )
+    val slots: Map[AdSlot, Int] = Map(ImageAdSlot(512, 0.03) -> 2, VideoAdSlot(300, 0.1) -> 2 )
+    val publisher = new AdPublisher(slots)
+    val remamingAds = ads.map( x=>
+      (x, publisher.remaining().filter( y => y._1.adType == x.adType && y._2 > 0))
+    ).filter(x => {
+      val (ad, slots) = x
+      !slots.exists(slot => publisher.sell(slot._1, ad))
+    }).map(_._1)
+
+    publisher.currentSales foreach println
+
+    println
+    remamingAds foreach println
   }
 }
