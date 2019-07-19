@@ -22,7 +22,7 @@ object Main {
     val seatFound = findSeat(flights, passenger)
     seatFound match {
       case Some((flight: Flight, seat: Seat)) => {
-        flight.addBooking(seat, passenger)
+        flight.sell(seat, passenger)
         true
       }
       case None => false
@@ -38,7 +38,7 @@ object Main {
 
     Flight.availableFlights.foreach(f => {
       println("bookings for flingt " + f)
-      f.seating foreach println
+      f.currentSales foreach println
       println
       println
     })

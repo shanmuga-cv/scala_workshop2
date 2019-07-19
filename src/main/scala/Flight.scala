@@ -1,25 +1,18 @@
-class Flight(id: String, private val pool: Map[Seat, Int]) {
-  private var seated = List[Seating]()
+class Flight(id: String, override val capacity: Map[Seat, Int]) extends Store[Seat, Person] {
+  private var seated = List[Sale[Seat, Person]]()
 
-  def remaining(): Map[Seat, Int] = {
-    val seatedCount = seated.groupBy(_.seatType).mapValues(_.length)
-    for {
-      (k, v) <- pool
-    } yield (k, v - seatedCount.getOrElse(k, 0))
-  }
-
-  def addBooking(seat: Seat, passenger: Person): Boolean = {
+  def sell(seat: Seat, passenger: Person): Boolean = {
     if(passenger.weight > seat.maxWeight)
       false
     val availableCount = remaining().getOrElse(seat, 0)
     if(availableCount > 0) {
-      seated = Seating(f"${seat.seatType}-$availableCount", seat, passenger ) +: seated
+      seated = Sale(f"${seat.seatType}-$availableCount", seat, passenger ) +: seated
       true
     }
     else false
   }
 
-  def seating: List[Seating] = seated
+  override def currentSales: List[Sale[Seat, Person]] = seated
 
   override def toString: String = s"Flight-$id"
 }
@@ -32,4 +25,3 @@ object Flight {
 }
 
 
-case class Seating(seatNumber: String, seatType: Seat, passenger: Person)
