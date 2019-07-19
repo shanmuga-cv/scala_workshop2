@@ -1,3 +1,5 @@
+package flight
+
 import scala.io.Source
 
 case class Person(name: String, weight: Int)

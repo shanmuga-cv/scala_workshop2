@@ -1,3 +1,5 @@
+package flight
+
 sealed class Seat(val seatType: String, val maxWeight: Int) {
   override def toString = f"${this.getClass.getName}<seatType=$seatType, maxWeight=$maxWeight>"
 
