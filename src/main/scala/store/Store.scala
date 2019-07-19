@@ -1,6 +1,6 @@
 package store
 
-case class Sale[T, U](saleId: String, item: T, customer: U)
+case class Sale[+T, +U](saleId: String, item: T, customer: U)
 
 trait Store[T, U] {
   def capacity: Map[T, Int]
