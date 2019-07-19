@@ -1,7 +1,10 @@
 import Main.{findAndBook, findSeat, findSeatInFlight}
+import flight.{Flight, LuxurySeat, Person, SingleSeat, SpecialSeat}
 import org.scalatest.FunSuite
+import store.Sale
 
-class Test extends FunSuite {
+
+class TestFlightBooking extends FunSuite {
   test("test findSeatInFlight") {
     assert(findSeatInFlight(new Flight("a", Map(SingleSeat -> 8)), Person("a", 80)) contains SingleSeat)
     assert(findSeatInFlight(new Flight("a", Map(SingleSeat -> 8)), Person("a", 120)).isEmpty)
@@ -39,28 +42,28 @@ class Test extends FunSuite {
     val remainingPeople = Person.people.filter(p => !findAndBook(flights, p))
     assert(remainingPeople == expectedRemainingPeople)
     val seating0 = List(
-      Seating("Single-1", SingleSeat, Person("Bruce", 56)),
-      Seating("Single-2", SingleSeat, Person("Barry", 55)),
-      Seating("Single-3", SingleSeat, Person("Ana", 74)),
-      Seating("Single-4", SingleSeat, Person("Amanda", 72)),
-      Seating("Single-5", SingleSeat, Person("Albert", 45)),
-      Seating("Single-6", SingleSeat, Person("Addison", 51)),
-      Seating("Single-7", SingleSeat, Person("Adam", 63)),
-      Seating("Single-8", SingleSeat, Person("Abraham", 62))
+      Sale("Single-1", SingleSeat, Person("Bruce", 56)),
+      Sale("Single-2", SingleSeat, Person("Barry", 55)),
+      Sale("Single-3", SingleSeat, Person("Ana", 74)),
+      Sale("Single-4", SingleSeat, Person("Amanda", 72)),
+      Sale("Single-5", SingleSeat, Person("Albert", 45)),
+      Sale("Single-6", SingleSeat, Person("Addison", 51)),
+      Sale("Single-7", SingleSeat, Person("Adam", 63)),
+      Sale("Single-8", SingleSeat, Person("Abraham", 62))
     )
-    assert(flights(0).seating == seating0)
+    assert(flights(0).currentSales == seating0)
 
     val seating1 = List(
-      Seating("Single-1",  SingleSeat, Person("Jessica", 53)),
-      Seating("Single-2",  SingleSeat, Person("Jenifer", 70)),
-      Seating("Single-3",  SingleSeat, Person("Emily", 71)),
-      Seating("Lux-1",  LuxurySeat, Person("Dona", 94)),
-      Seating("Single-4",  SingleSeat, Person("David", 58)),
-      Seating("Single-5",  SingleSeat, Person("Carl", 75)),
-      Seating("Spl-1",  new SpecialSeat(150), new Person("Blake", 126)),
-      Seating("Lux-2",  LuxurySeat, Person("Beth", 82)),
-      Seating("Spl-2",  new SpecialSeat(150), new Person("Alice", 145))
+      Sale("Single-1",  SingleSeat, Person("Jessica", 53)),
+      Sale("Single-2",  SingleSeat, Person("Jenifer", 70)),
+      Sale("Single-3",  SingleSeat, Person("Emily", 71)),
+      Sale("Lux-1",  LuxurySeat, Person("Dona", 94)),
+      Sale("Single-4",  SingleSeat, Person("David", 58)),
+      Sale("Single-5",  SingleSeat, Person("Carl", 75)),
+      Sale("Spl-1",  new SpecialSeat(150), new Person("Blake", 126)),
+      Sale("Lux-2",  LuxurySeat, Person("Beth", 82)),
+      Sale("Spl-2",  new SpecialSeat(150), new Person("Alice", 145))
     )
-    assert(flights(1).seating == seating1)
+    assert(flights(1).currentSales == seating1)
   }
 }

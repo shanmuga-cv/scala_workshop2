@@ -24,7 +24,7 @@ object Main {
     val seatFound = findSeat(flights, passenger)
     seatFound match {
       case Some((flight: Flight, seat: Seat)) => {
-        flight.addBooking(seat, passenger)
+        flight.sell(seat, passenger)
         true
       }
       case None => false
