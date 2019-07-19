@@ -1,3 +1,5 @@
+import flight.{Flight, Person, Seat}
+
 import scala.util.Try
 
 object Main {
@@ -16,7 +18,7 @@ object Main {
 
     Flight.availableFlights.foreach(f => {
       println("bookings for flingt " + f)
-      f.seating foreach println
+      f.currentSales foreach println
       println
       println
     })
